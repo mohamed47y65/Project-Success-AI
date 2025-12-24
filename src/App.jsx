@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Rocket, Zap, ChevronRight, TrendingUp, AlertCircle, CheckCircle, Loader, Info, Phone, Mail, User, Brain, Target, LineChart, Globe, Moon, Sun } from 'lucide-react';
+import { Rocket, Building2, Zap, ChevronRight, TrendingUp, AlertCircle, CheckCircle, Loader, Info, Phone, Mail, User, Brain, Target, LineChart, Globe, Moon, Sun } from 'lucide-react';
 
 const ProjectSuccessAI = () => {
-  // تم إزالة state الخاصة بـ projectType لأننا نستخدم نوع واحد فقط الآن
+  const [projectType, setProjectType] = useState('startup');
   const [formData, setFormData] = useState({});
   const [prediction, setPrediction] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -33,14 +33,14 @@ const ProjectSuccessAI = () => {
       hero: {
         badge: 'AI-Powered Analysis',
         title: 'Project Success AI',
-        subtitle: 'Predict your startup success rate with advanced machine learning',
+        subtitle: 'Predict your project success rate with advanced machine learning',
         cta: 'Get Started'
       },
       about: {
         title: 'About Platform',
         heading: 'Intelligent Project Analysis',
         description: 'Project Success AI is a cutting-edge platform powered by advanced machine learning algorithms trained on over 1 million real-world projects. Our AI-driven system analyzes your project data and provides accurate success predictions with actionable insights.',
-        description2: 'Whether you\'re launching a new startup or scaling an existing one, our platform delivers data-driven predictions to help you make informed decisions and maximize your chances of success.',
+        description2: 'Whether you\'re launching a startup or managing an enterprise project, our platform delivers data-driven predictions to help you make informed decisions and maximize your chances of success.',
         features: {
           accurate: {
             title: 'Highly Accurate',
@@ -57,11 +57,16 @@ const ProjectSuccessAI = () => {
         }
       },
       analysis: {
-        title: 'Startup Analysis',
-        subtitle: 'Provide detailed information about your startup',
-        formTitle: 'Startup Analysis Form', // تم توحيد العنوان
+        title: 'Project Analysis',
+        subtitle: 'Select your project type and provide detailed information',
+        startup: 'Startup Project',
+        enterprise: 'Enterprise Project',
+        formTitle: {
+          startup: 'Startup Analysis Form',
+          enterprise: 'Enterprise Analysis Form'
+        },
         description: 'Project Description',
-        descPlaceholder: 'Describe your startup in detail. This helps our AI provide better insights...',
+        descPlaceholder: 'Describe your project in detail. This helps our AI provide better insights...',
         analyze: 'Analyze Project',
         analyzing: 'Analyzing...'
       },
@@ -102,14 +107,14 @@ const ProjectSuccessAI = () => {
       hero: {
         badge: 'تحليل بالذكاء الاصطناعي',
         title: 'نجاح المشروع بالذكاء الاصطناعي',
-        subtitle: 'توقع معدل نجاح مشروعك الناشئ باستخدام التعلم الآلي المتقدم',
+        subtitle: 'توقع معدل نجاح مشروعك باستخدام التعلم الآلي المتقدم',
         cta: 'ابدأ الآن'
       },
       about: {
         title: 'عن المنصة',
         heading: 'تحليل ذكي للمشاريع',
         description: 'Project Success AI منصة متطورة مدعومة بخوارزميات التعلم الآلي المتقدمة المدربة على أكثر من مليون مشروع حقيقي. يقوم نظامنا المدعوم بالذكاء الاصطناعي بتحليل بيانات مشروعك ويقدم توقعات دقيقة للنجاح مع رؤى قابلة للتنفيذ.',
-        description2: 'سواء كنت تطلق شركة ناشئة جديدة أو تطور شركة قائمة، توفر منصتنا توقعات مدفوعة بالبيانات لمساعدتك على اتخاذ قرارات مستنيرة وتعظيم فرص نجاحك.',
+        description2: 'سواء كنت تطلق شركة ناشئة أو تدير مشروعًا كبيرًا، توفر منصتنا توقعات مدفوعة بالبيانات لمساعدتك على اتخاذ قرارات مستنيرة وتعظيم فرص نجاحك.',
         features: {
           accurate: {
             title: 'دقة عالية',
@@ -126,9 +131,14 @@ const ProjectSuccessAI = () => {
         }
       },
       analysis: {
-        title: 'تحليل المشروع الناشئ',
-        subtitle: 'قدم معلومات مفصلة عن شركتك الناشئة',
-        formTitle: 'نموذج تحليل المشاريع الناشئة', // تم توحيد العنوان
+        title: 'تحليل المشروع',
+        subtitle: 'اختر نوع مشروعك وقدم معلومات مفصلة',
+        startup: 'مشروع ناشئ',
+        enterprise: 'مشروع كبير',
+        formTitle: {
+          startup: 'نموذج تحليل المشاريع الناشئة',
+          enterprise: 'نموذج تحليل المشاريع الكبيرة'
+        },
         description: 'وصف المشروع',
         descPlaceholder: 'صف مشروعك بالتفصيل. يساعد هذا الذكاء الاصطناعي على تقديم رؤى أفضل...',
         analyze: 'تحليل المشروع',
@@ -178,7 +188,17 @@ const ProjectSuccessAI = () => {
     { name: 'Capital_Efficiency', label: 'Capital Efficiency (Optional)', type: 'number', required: false, min: 0, step: 0.01, placeholder: 'Revenue / Burn Rate' }
   ];
 
-  // تم إزالة enterpriseFields
+  const enterpriseFields = [
+    { name: 'Industry', label: 'Industry Sector', type: 'select', required: true, options: ['Construction', 'Energy', 'Finance', 'Gov', 'Telecom', 'Manufacturing', 'Health'] },
+    { name: 'Country', label: 'Country', type: 'select', required: true, options: ['Egypt', 'Saudi Arabia', 'UAE', 'Jordan', 'Qatar', 'Kuwait', 'Bahrain', 'Oman'] },
+    { name: 'Project_Type', label: 'Project Type', type: 'select', required: true, options: ['Strategic', 'Operational', 'Compliance'] },
+    { name: 'Vendor_Complexity', label: 'Vendor Complexity', type: 'select', required: true, options: ['Low', 'Medium', 'High'] },
+    { name: 'Regulatory_Pressure_Level', label: 'Regulatory Pressure', type: 'select', required: true, options: [{ value: 0, label: 'Low' }, { value: 1, label: 'Medium' }, { value: 2, label: 'High' }] },
+    { name: 'Supply_Chain_Risk_Level', label: 'Supply Chain Risk', type: 'select', required: true, options: ['Low', 'Medium', 'High'] },
+    { name: 'Budget_USD', label: 'Total Budget (USD)', type: 'number', required: true, min: 0, placeholder: 'e.g., 500000' },
+    { name: 'Project_Duration_Months', label: 'Duration (Months)', type: 'number', required: true, min: 1, placeholder: 'Expected timeline' },
+    { name: 'Team_Size', label: 'Team Size', type: 'number', required: true, min: 1, placeholder: 'Team members' }
+  ];
 
   const handleInputChange = (e) => {
     const { name, value, type } = e.target;
@@ -186,23 +206,40 @@ const ProjectSuccessAI = () => {
   };
 
   const constructPayload = () => {
-    // تم تثبيت البايلود ليكون Startup فقط
-    return {
-      project_type: 'startup',
-      project_description: formData.project_description || '',
-      features: {
-        Industry: formData.Industry || '',
-        Country: formData.Country || '',
-        Capital_USD: formData.Capital_USD || 0,
-        Team_Size: formData.Team_Size || 0,
-        Founder_Exp_Years: formData.Founder_Exp_Years || 0,
-        Company_Age_Months: formData.Company_Age_Months || 12,
-        Competitors_Count: formData.Competitors_Count || 10,
-        Monthly_Revenue: formData.Monthly_Revenue || 0,
-        Revenue_Growth_Rate: formData.Revenue_Growth_Rate || 0,
-        Capital_Efficiency: formData.Capital_Efficiency || (formData.Monthly_Revenue / Math.max(1, formData.Capital_USD / 12))
-      }
-    };
+    if (projectType === 'startup') {
+      return {
+        project_type: 'startup',
+        project_description: formData.project_description || '',
+        features: {
+          Industry: formData.Industry || '',
+          Country: formData.Country || '',
+          Capital_USD: formData.Capital_USD || 0,
+          Team_Size: formData.Team_Size || 0,
+          Founder_Exp_Years: formData.Founder_Exp_Years || 0,
+          Company_Age_Months: formData.Company_Age_Months || 12,
+          Competitors_Count: formData.Competitors_Count || 10,
+          Monthly_Revenue: formData.Monthly_Revenue || 0,
+          Revenue_Growth_Rate: formData.Revenue_Growth_Rate || 0,
+          Capital_Efficiency: formData.Capital_Efficiency || (formData.Monthly_Revenue / Math.max(1, formData.Capital_USD / 12))
+        }
+      };
+    } else {
+      return {
+        project_type: 'enterprise',
+        project_description: formData.project_description || '',
+        features: {
+          Industry: formData.Industry || '',
+          Country: formData.Country || '',
+          Project_Type: formData.Project_Type || '',
+          Vendor_Complexity: formData.Vendor_Complexity || '',
+          Regulatory_Pressure_Level: parseInt(formData.Regulatory_Pressure_Level) || 0,
+          Supply_Chain_Risk_Level: formData.Supply_Chain_Risk_Level || '',
+          Budget_USD: formData.Budget_USD || 0,
+          Project_Duration_Months: formData.Project_Duration_Months || 0,
+          Team_Size: formData.Team_Size || 0
+        }
+      };
+    }
   };
 
 const handlePredict = async () => {
@@ -211,9 +248,11 @@ const handlePredict = async () => {
     try {
       const payload = constructPayload();
       
-      // تم تثبيت الرابط على analyze/startup
-      const endpoint = 'analyze/startup';
+      // تحديد الرابط حسب نوع المشروع
+      const endpoint = projectType === 'startup' ? 'analyze/startup' : 'analyze/enterprise';
       
+      // تأكد أن الرابط هو 8000 (رابط الباك اند)
+      // الرابط الجديد الخاص بـ Hugging Face
       const apiUrl = "https://mohamed47y65-ps-ai-new.hf.space";
       
       const response = await fetch(`${apiUrl}/${endpoint}`, {
@@ -221,15 +260,20 @@ const handlePredict = async () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-        
+       
 
       const rawData = await response.json();
 
+      // 👇👇 هنا الحل السحري: تنسيق البيانات عشان الموقع مايعملش Crash 👇👇
       const formattedData = {
         success_probability: rawData.success_probability,
+        // الموقع محتاج "confidence" والباك اند مش بيبعتها، فبنحط قيمة افتراضية
         confidence: 85.0, 
+        // تحويل حالة المشروع (Success/High Risk) لـ (Low/High) اللي الموقع عارفها
         risk_level: rawData.prediction === 'Success' ? 'Low' : 'High',
+        // الباك اند بيبعت "ai_report" بس الموقع مستني "gemini_analysis"
         gemini_analysis: rawData.ai_report,
+        // الحقول دي ناقصة في الباك اند حالياً، بنخليها null عشان مايحصلش خطأ
         shap_analysis: null,
         recommendations: rawData.prediction === 'High Risk' 
           ? ['Review your budget', 'Check market competition'] 
@@ -240,6 +284,7 @@ const handlePredict = async () => {
 
     } catch (error) {
       console.error('Prediction error:', error);
+      // كود المحاكاة القديم في حالة الخطأ (سيبه زي ما هو أو امسحه)
       const demoSuccess = Math.random() * 40 + 60;
       setPrediction({
         success_probability: demoSuccess,
@@ -259,8 +304,7 @@ const handlePredict = async () => {
     if (element) element.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // الحقول الحالية هي حقول الستارت اب دائماً
-  const currentFields = startupFields;
+  const currentFields = projectType === 'startup' ? startupFields : enterpriseFields;
   const isRTL = language === 'ar';
 
   // Theme colors
@@ -412,11 +456,22 @@ const handlePredict = async () => {
             <p className={`${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}>{t.analysis.subtitle}</p>
           </div>
 
-          {/* تم إزالة أزرار التبديل بين Startup و Enterprise من هنا */}
+          <div className="flex justify-center gap-4 mb-8">
+            <button onClick={() => { setProjectType('startup'); setFormData({}); setPrediction(null); }}
+              className={`px-8 py-3 rounded-lg transition transform hover:scale-105 ${projectType === 'startup' ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50' : `${theme === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-gray-200 text-gray-700'} ${colors.hover}`}`}>
+              <Rocket className="inline mr-2" size={20} />
+              {t.analysis.startup}
+            </button>
+            <button onClick={() => { setProjectType('enterprise'); setFormData({}); setPrediction(null); }}
+              className={`px-8 py-3 rounded-lg transition transform hover:scale-105 ${projectType === 'enterprise' ? 'bg-purple-600 text-white shadow-lg shadow-purple-500/50' : `${theme === 'dark' ? 'bg-gray-800 text-gray-400' : 'bg-gray-200 text-gray-700'} ${colors.hover}`}`}>
+              <Building2 className="inline mr-2" size={20} />
+              {t.analysis.enterprise}
+            </button>
+          </div>
 
           <div className={`${colors.card} backdrop-blur-sm border ${colors.border} rounded-2xl p-8 max-w-5xl mx-auto`}>
             <h3 className="text-2xl font-bold mb-6 text-center">
-              {t.analysis.formTitle}
+              {projectType === 'startup' ? t.analysis.formTitle.startup : t.analysis.formTitle.enterprise}
             </h3>
 
             <div className="mb-8">
